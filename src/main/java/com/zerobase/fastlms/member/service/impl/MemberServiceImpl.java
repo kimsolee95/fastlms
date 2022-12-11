@@ -11,6 +11,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -39,13 +40,15 @@ public class MemberServiceImpl implements MemberService {
             return false;
         }
 
+        String encPassword = BCrypt.hashpw(parameter.getPassword(), BCrypt.gensalt());
+
         String uuid = UUID.randomUUID().toString();
 
         Member member = Member.builder()
                 .userId(parameter.getUserId())
                 .userName(parameter.getUserName())
                 .phone(parameter.getPhone())
-                .password(parameter.getPassword())
+                .password(encPassword)
                 .regDt(LocalDateTime.now())
                 .emailAuthYn(false)
                 .emailAuthKey(uuid)
