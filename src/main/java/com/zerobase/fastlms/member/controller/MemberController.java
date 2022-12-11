@@ -45,7 +45,7 @@ public class MemberController {
         return "member/register-complete";
     }
 
-    @GetMapping("/member/email-auth?")
+    @GetMapping("/member/email-auth")
     public String emailAuth(Model model, HttpServletRequest request) {
 
         String uuid = request.getParameter("id");
@@ -54,7 +54,7 @@ public class MemberController {
         boolean result = memberService.emailAuth(uuid);
         model.addAttribute("result", result);
 
-        return "member/email_auth";
+        return "member/email-auth";
     }
 
     @GetMapping("/member/info")
