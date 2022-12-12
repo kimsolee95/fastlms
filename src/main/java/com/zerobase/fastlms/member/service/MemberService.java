@@ -21,4 +21,15 @@ public interface MemberService extends UserDetailsService {
      * */
     boolean sendResetPassword(ResetPasswordInput parameter);
 
+
+    /**
+     * 입력받은 uuid로 사용자의 password로 초기화함.
+     * */
+    boolean resetPassword(String uuid, String password);
+
+
+    /**
+     * 입력받은 uuid 값이 유효한지 확인
+     * */
+    boolean checkResetPassword(String uuid);
 }
