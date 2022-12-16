@@ -31,5 +31,7 @@ public class MemberDto {
     /* 관리자 여부 */
     boolean adminYn;
 
+    /*page  컬럼*/
+    long totalCount;
 
 }

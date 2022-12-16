@@ -10,7 +10,10 @@ import java.util.List;
 @Mapper
 public interface MemberMapper {
 
+    /* admin 회원 조회 시 total num */
+    Long selectListCount(MemberParam parameter);
 
+    /* admin 회원 조회 */
     List<MemberDto> selectList(MemberParam parameter);
 
 
