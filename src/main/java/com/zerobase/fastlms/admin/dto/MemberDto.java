@@ -1,11 +1,22 @@
 package com.zerobase.fastlms.admin.dto;
 
+import com.zerobase.fastlms.member.entity.Member;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
+@Builder
 public class MemberDto {
+
+    //빌터 패턴 사용
+    //기본생성자 -> NoArgsConstructor
+    //전체 속성 컬럼 -> AllArgsConstructor
 
     String userId;
     String userName;
@@ -33,5 +44,25 @@ public class MemberDto {
 
     /*page  컬럼*/
     long totalCount;
+
+    /* 게시글 순번 */
+    long seq;
+
+    public static MemberDto of(Member member) {
+
+        return MemberDto.builder()
+                .userId(member.getUserId())
+                .userName(member.getUserName())
+                .phone(member.getPhone())
+                .regDt(member.getRegDt())
+                .emailAuthYn(member.isEmailAuthYn())
+                .emailAuthDt(member.getEmailAuthDt())
+                .emailAuthKey(member.getEmailAuthKey())
+                .resetPasswordKey(member.getResetPasswordKey())
+                .resetPasswordLimitDt(member.getResetPasswordLimitDt())
+                .adminYn(member.isAdminYn())
+                .build();
+    }
+
 
 }

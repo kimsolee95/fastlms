@@ -208,15 +208,33 @@ public class MemberServiceImpl implements MemberService {
 
         long totalCount = memberMapper.selectListCount(parameter);
 
-        List<MemberDto>list = memberMapper.selectList(parameter);
+        List<MemberDto> list = memberMapper.selectList(parameter);
 
         if (!CollectionUtils.isEmpty(list)) {
+
+            int i = 0;
+
             for (MemberDto member : list) {
                 member.setTotalCount(totalCount);
+                member.setSeq(totalCount - parameter.getPageStart() - i); //순번
+                i++;
             }
         }
 
         return list;
+    }
+
+
+    @Override
+    public MemberDto detail(String userId) {
+
+        Optional<Member> optionalMember = memberRepository.findById(userId);
+        if (!optionalMember.isPresent()) {
+            return null;
+        }
+
+        Member member = optionalMember.get();
+        return  MemberDto.of(member); // Member -> MemberDto로 변환 return
     }
 
 }

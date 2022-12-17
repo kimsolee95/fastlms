@@ -5,11 +5,15 @@ import lombok.Data;
 @Data
 public class MemberParam {
 
+
+
     long pageIndex;
     long pageSize;
 
     String searchType;
     String searchValue;
+
+    String userId;
 
     /*
     limit 0, 10 --> pageIndex: 1
@@ -35,6 +39,25 @@ public class MemberParam {
         if (pageSize < 10) {
             pageSize = 10;
         }
+    }
+
+    public String getQueryString() {
+        init();
+
+        StringBuilder sb = new StringBuilder();
+
+        if (searchType != null && searchType.length() > 0) {
+            sb.append(String.format("searchType=%s", searchType));
+        }
+
+        if (searchValue != null && searchValue.length() > 0) {
+            if (sb.length() > 0) {
+                sb.append("&");
+            }
+            sb.append(String.format("searchValue", searchValue));
+        }
+
+        return sb.toString();
     }
 
 }

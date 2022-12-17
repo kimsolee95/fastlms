@@ -28,7 +28,7 @@ public class AdminMemberController {
         if (members != null && members.size() > 0) {
             totalCount = members.get(0).getTotalCount();
         }
-        String queryString = "";
+        String queryString = parameter.getQueryString(); //검색이 유지되면서 paging 처리
 
         PageUtil pageUtil = new PageUtil(totalCount, parameter.getPageSize(), parameter.getPageIndex(), queryString);
 
@@ -39,5 +39,18 @@ public class AdminMemberController {
 
         return "admin/member/list";
     }
+
+    @GetMapping("/admin/member/detail.do")
+    public String detail(Model model, MemberParam parameter) {
+
+        parameter.init(); //page parameter의 값들이 유효한 값이 되도록 초기화
+
+        MemberDto member = memberService.detail(parameter.getUserId());
+        model.addAttribute("member", member);
+
+        return "admin/member/detail";
+    }
+
+
 
 }

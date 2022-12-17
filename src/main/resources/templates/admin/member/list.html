@@ -15,8 +15,27 @@
         }
 
         .search-form {
+            position: relative;
             padding: 5px 0 10px 0;
             text-align: right;
+        }
+
+        .search-form .total-count {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 20px;
+            float: left;
+        }
+
+        .pager {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .pager a.on {
+            font-weight: bold;
+            color: red;
         }
 
     </style>
@@ -84,10 +103,14 @@
             </thead>
             <tbody>
                 <tr th:each="member : ${list}">
-                    <td>
-                        1
+                    <td th:text="${member.seq}">
                     </td>
                     <td th:text="${member.userId}">
+                        <!--
+                        <a th:text="${member.userId}"
+                           th:href="${'detail.do?id=' + member.userId}">
+                        </a>
+                        -->
                     </td>
                     <td th:text="${member.userName}">
                     </td>
