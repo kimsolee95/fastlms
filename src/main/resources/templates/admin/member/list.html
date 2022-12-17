@@ -106,11 +106,8 @@
                     <td th:text="${member.seq}">
                     </td>
                     <td th:text="${member.userId}">
-                        <!--
-                        <a th:text="${member.userId}"
-                           th:href="${'detail.do?id=' + member.userId}">
+                        <a th:href="@{/admin/member/detail.do(userId=${member.userId})}">
                         </a>
-                        -->
                     </td>
                     <td th:text="${member.userName}">
                     </td>

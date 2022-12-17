@@ -6,6 +6,7 @@ import com.zerobase.fastlms.admin.model.MemberParam;
 import com.zerobase.fastlms.components.MailComponents;
 import com.zerobase.fastlms.member.entity.Member;
 import com.zerobase.fastlms.member.exception.MemberNotEmailAuthException;
+import com.zerobase.fastlms.member.exception.MemberStopUserException;
 import com.zerobase.fastlms.member.model.MemberInput;
 import com.zerobase.fastlms.member.model.ResetPasswordInput;
 import com.zerobase.fastlms.member.repository.MemberRepository;
@@ -59,6 +60,7 @@ public class MemberServiceImpl implements MemberService {
                 .regDt(LocalDateTime.now())
                 .emailAuthYn(false)
                 .emailAuthKey(uuid)
+                .userStatus(Member.MEMBER_STATUS_REQ) // 회원 가입 시 default
                 .build();
         memberRepository.save(member);
 
@@ -91,6 +93,7 @@ public class MemberServiceImpl implements MemberService {
         }
 
         member.setEmailAuthYn(true);
+        member.setUserStatus(Member.MEMBER_STATUS_ING); // 이용 가능 상태로 update
         member.setEmailAuthDt(LocalDateTime.now());
         memberRepository.save(member);
 
@@ -187,9 +190,17 @@ public class MemberServiceImpl implements MemberService {
 
         Member member = optionalMember.get();
 
-        if (!member.isEmailAuthYn()) {
-            throw new MemberNotEmailAuthException("이메일 활성화 이후에 로그인을 해주세요.");
+        if (Member.MEMBER_STATUS_REQ.equals(member.getUserStatus())) {
+            throw new MemberNotEmailAuthException("이메일 인증 이후에 로그인을 해주세요.");
         }
+
+        if (Member.MEMBER_STATUS_STOP.equals(member.getUserStatus())) {
+            throw new MemberStopUserException("정지된 회원입니다.");
+        }
+
+//        if (!member.isEmailAuthYn()) {
+//            throw new MemberNotEmailAuthException("이메일 활성화 이후에 로그인을 해주세요.");
+//        }
 
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
         grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));
@@ -235,6 +246,23 @@ public class MemberServiceImpl implements MemberService {
 
         Member member = optionalMember.get();
         return  MemberDto.of(member); // Member -> MemberDto로 변환 return
+    }
+
+
+    @Override
+    public boolean updateStatus(String userId, String userStatus) {
+
+        Optional<Member> optionalMember = memberRepository.findById(userId);
+        if (!optionalMember.isPresent()) {
+            throw new UsernameNotFoundException("회원 정보가 존재하지 않습니다.");
+        }
+
+        Member member = optionalMember.get();
+
+        member.setUserStatus(userStatus);
+        memberRepository.save(member);
+
+        return true;
     }
 
 }

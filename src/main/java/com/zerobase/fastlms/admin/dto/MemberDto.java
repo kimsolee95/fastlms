@@ -48,6 +48,9 @@ public class MemberDto {
     /* 게시글 순번 */
     long seq;
 
+    /* 회원 상태 */
+    String userStatus;
+
     public static MemberDto of(Member member) {
 
         return MemberDto.builder()
@@ -61,6 +64,7 @@ public class MemberDto {
                 .resetPasswordKey(member.getResetPasswordKey())
                 .resetPasswordLimitDt(member.getResetPasswordLimitDt())
                 .adminYn(member.isAdminYn())
+                .userStatus(member.getUserStatus())
                 .build();
     }
 
