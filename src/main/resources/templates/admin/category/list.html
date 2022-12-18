@@ -13,7 +13,61 @@
         .list table th, .list table td {
             border: solid 1px #800;
         }
+
+        p.nothing {
+            text-align: center;
+            padding: 100px;
+        }
+
+        .inline-div {
+            display: inline-block;
+        }
+
+
     </style>
+
+    <!-- jquery cdn -->
+    <script src="https://code.jquery.com/jquery-3.6.2.min.js" integrity="sha256-2krYZKh//PcchRtd+H+VyyQoZ/e3EcrkxhM8ycwASPA=" crossorigin="anonymous"></script>
+
+    <script>
+
+        $(document).ready(function() {
+
+            //삭제
+            $('form[name=deleteForm]').on('submit', function() {
+
+                if (!confirm('카테고리를 삭제하시겠습니까?')) {
+                    return false;
+                }
+            });
+
+            //수정
+            $('button.update-button').on('click', function() {
+
+                if (!confirm('카테고리를 수정하시겠습니까?')) {
+                    return false;
+                }
+
+                var $this = $(this); //수정 버튼
+
+                var $tr = $this.closest('tr');
+
+                var id = $tr.find('input[name=id]').val();
+                var categoryName = $tr.find('input[name=categoryName]').val();
+                var sortValue = $tr.find('input[name=sortValue]').val();
+                var usingYn = $tr.find('input[type=checkbox]')[0].checked;
+
+                $updateForm = $('form[name=updateForm]');
+                $updateForm.find('input[name=id]').val(id);
+                $updateForm.find('input[name=categoryName]').val(categoryName);
+                $updateForm.find('input[name=sortValue]').val(sortValue);
+                $updateForm.find('input[name=usingYn]').val(usingYn);
+                $updateForm.submit();
+            });
+
+        });
+
+    </script>
 </head>
 <body>
 
@@ -44,26 +98,58 @@
                     <th>
                         사용여부
                     </th>
+                    <th>
+                        비고
+                    </th>
                 </tr>
             </thead>
             <tbody>
 
                 <tr th:each="category : ${list}">
                     <td th:text="${category.id}">
+
+                        <input type="hidden" name="id" th:value="${category.id}" />
+                        <p th:text="${category.id}"></p>
+
                     </td>
-                    <td th:text="${category.categoryName}">
+                    <td>
+                        <input th:value="${category.categoryName}" type="text" name="categoryName" />
                     </td>
-                    <td th:text="${category.sortValue}">
+                    <td>
+                        <input th:value="${category.sortValue}" type="text" name="sortValue" />
                     </td>
-                    <td th:text="${category.usingYn}">
+                    <td>
+                        <input th:checked="${category.usingYn}" type="checkbox" th:id="'usingYn_' + ${category.id}" th:name="'usingYn_' + ${category.id}" value="true" />
+                        <label th:for="'usingYn_' + ${category.id}">사용</label>
+                    </td>
+                    <td>
+                        <div class="inline-div">
+                            <button class="update-button" type="button">수정</button>
+                        </div>
+                        <div class="inline-div">
+                            <form name="deleteForm" method="post" action="/admin/category/delete.do">
+                                <input type="hidden" name="id" th:value="${category.id}">
+                                <button type="submit">삭제</button>
+                            </form>
+                        </div>
                     </td>
                 </tr>
-
+                <tr th:if="${#lists.size(list) < 1}">
+                    <td colspan="5">
+                        <p class="nothing">내용이 없습니다.</p>
+                    </td>
+                </tr>
             </tbody>
         </table>
 
-
     </div>
+
+    <form name="updateForm" method="post" action="/admin/category/update.do">
+        <input type="hidden" name="id" />
+        <input type="hidden" name="categoryName" />
+        <input type="hidden" name="sortValue" />
+        <input type="hidden" name="usingYn" />
+    </form>
 
 </body>
 </html>

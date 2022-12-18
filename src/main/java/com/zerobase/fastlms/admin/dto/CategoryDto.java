@@ -45,6 +45,7 @@ public class CategoryDto {
                 .id(category.getId())
                 .categoryName(category.getCategoryName())
                 .sortValue(category.getSortValue())
+                .usingYn(category.isUsingYn())
                 .build();
     }
 
