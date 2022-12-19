@@ -50,6 +50,7 @@
         <trim prefix="WHERE" prefixOverrides="AND">
             <include refid="selectListWhere"></include>
         </trim>
+        ORDER BY REG_DT DESC
         LIMIT #{pageStart}, #{pageEnd}
     </select>
 

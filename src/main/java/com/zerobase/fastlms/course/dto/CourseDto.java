@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
@@ -33,7 +34,7 @@ public class CourseDto {
 
     long salePrice;
 
-    LocalDateTime saleEndDt;
+    LocalDate saleEndDt;
 
     /* 등록일 */
     LocalDateTime regDt;
