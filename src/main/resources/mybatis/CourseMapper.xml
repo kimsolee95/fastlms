@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zerobase.fastlms.admin.mapper.MemberMapper">
+<mapper namespace="com.zerobase.fastlms.course.mapper.CourseMapper">
 
     <sql id="selectListWhere">
         <if test="searchType != null and searchValue != null">
@@ -30,11 +30,11 @@
     </sql>
 
     <select id="selectListCount"
-            parameterType="com.zerobase.fastlms.admin.model.MemberParam"
+            parameterType="com.zerobase.fastlms.course.model.CourseParam"
             resultType="long">
         SELECT
             COUNT(*)
-        FROM MEMBER
+        FROM COURSE
         <trim prefix="WHERE" prefixOverrides="AND">
             <include refid="selectListWhere"></include>
         </trim>
@@ -42,21 +42,11 @@
 
 
     <select id="selectList"
-            parameterType="com.zerobase.fastlms.admin.model.MemberParam"
-            resultType="com.zerobase.fastlms.admin.dto.MemberDto">
+            parameterType="com.zerobase.fastlms.course.model.CourseParam"
+            resultType="com.zerobase.fastlms.course.dto.CourseDto">
         SELECT
-            user_id AS userId
-            , password AS password
-            , reg_dt AS regDt
-            , user_name AS userName
-            , phone AS phone
-            , email_auth_key AS emailAuthKey
-            , email_auth_yn AS emailAuthYn
-            , email_auth_dt AS emailAuthDt
-            , reset_password_key AS resetPasswordKey
-            , reset_password_limit_dt AS resetPasswordLimitDt
-            , admin_yn AS adminYn
-        FROM MEMBER
+            *
+        FROM COURSE
         <trim prefix="WHERE" prefixOverrides="AND">
             <include refid="selectListWhere"></include>
         </trim>
