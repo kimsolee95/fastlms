@@ -17,6 +17,8 @@ public class CourseDto {
 
     Long id;
 
+    long categoryId;
+
     String imagePath;
 
     String keyword;
@@ -47,6 +49,7 @@ public class CourseDto {
 
         return CourseDto.builder()
                 .id(course.getId())
+                .categoryId(course.getCategoryId())
                 .imagePath(course.getImagePath())
                 .keyword(course.getKeyword())
                 .subject(course.getSubject())
