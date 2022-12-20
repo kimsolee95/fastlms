@@ -6,6 +6,9 @@ import lombok.Data;
 @Data
 public class CourseParam extends CommonParam {
 
+    /* course id */
+    long id;
+
     long categoryId;
 
 }

@@ -14,7 +14,7 @@ public interface CourseService {
     /* 강좌 목록 - 관리자 */
     List<CourseDto> list(CourseParam parameter);
 
-    /* 강좌 상세정보 */
+    /* 강좌 상세정보 - 관리자 */
     CourseDto getById(long id);
 
     /* 강좌정보 수정 */
@@ -25,4 +25,7 @@ public interface CourseService {
 
     /*강좌 목록 - 이용자*/
     List<CourseDto> frontList(CourseParam parameter);
+
+    /* 강좌 상세정보 - 이용자 */
+    CourseDto frontDetail(long courseId);
 }

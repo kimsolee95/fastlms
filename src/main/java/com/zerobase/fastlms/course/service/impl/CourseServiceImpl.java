@@ -156,4 +156,16 @@ public class CourseServiceImpl implements CourseService {
 
         return null;
     }
+
+    @Override
+    public CourseDto frontDetail(long courseId) {
+
+        Optional<Course> optionalCourse = courseRepository.findById(courseId);
+
+        if (optionalCourse.isPresent()) {
+            return CourseDto.of(optionalCourse.get());
+        }
+
+        return null;
+    }
 }
