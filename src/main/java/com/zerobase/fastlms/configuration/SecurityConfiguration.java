@@ -33,6 +33,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.csrf().disable();
+        http.headers().frameOptions().sameOrigin(); //cross-origin (스마트에디터 적용 이슈 - 스마트에디터 iframe)
 
         http.authorizeRequests()
                         .antMatchers(
