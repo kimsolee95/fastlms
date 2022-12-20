@@ -19,4 +19,7 @@ public interface CategoryService {
 
     /* 카테고리 삭제 - 관리자 */
     boolean del(long id);
+
+    /* 프론트 카테고리 목록 조회 */
+    List<CategoryDto> frontList(CategoryDto parameter);
 }
