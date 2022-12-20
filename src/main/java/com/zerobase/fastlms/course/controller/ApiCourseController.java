@@ -2,9 +2,11 @@ package com.zerobase.fastlms.course.controller;
 
 import com.zerobase.fastlms.admin.dto.CategoryDto;
 import com.zerobase.fastlms.admin.service.CategoryService;
+import com.zerobase.fastlms.common.model.ResponseResult;
 import com.zerobase.fastlms.course.dto.CourseDto;
 import com.zerobase.fastlms.course.entity.TakeCourse;
 import com.zerobase.fastlms.course.model.CourseParam;
+import com.zerobase.fastlms.course.model.ServiceResult;
 import com.zerobase.fastlms.course.model.TakeCourseInput;
 import com.zerobase.fastlms.course.service.CourseService;
 import lombok.RequiredArgsConstructor;
@@ -36,13 +38,17 @@ public class ApiCourseController extends BaseController{
         parameter.setUserId(principal.getName());
 
 
-        boolean result = courseService.req(parameter);
+        ServiceResult result = courseService.req(parameter);
 
-        if (!result) {
-            return ResponseEntity.badRequest().body("수강신청에 실패하였습니다.");
+        if (!result.isResult()) {
+
+            ResponseResult responseResult = new ResponseResult(false, result.getMessage());
+
+            return ResponseEntity.ok().body(responseResult);
         }
 
-        return ResponseEntity.ok().body(parameter);
+        ResponseResult responseResult = new ResponseResult(true);
+        return ResponseEntity.ok().body(responseResult);
     }
 
 
