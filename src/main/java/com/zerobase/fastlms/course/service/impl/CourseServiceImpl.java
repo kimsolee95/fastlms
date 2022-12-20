@@ -3,9 +3,12 @@ package com.zerobase.fastlms.course.service.impl;
 import com.zerobase.fastlms.admin.model.CourseInput;
 import com.zerobase.fastlms.course.dto.CourseDto;
 import com.zerobase.fastlms.course.entity.Course;
+import com.zerobase.fastlms.course.entity.TakeCourse;
 import com.zerobase.fastlms.course.mapper.CourseMapper;
 import com.zerobase.fastlms.course.model.CourseParam;
+import com.zerobase.fastlms.course.model.TakeCourseInput;
 import com.zerobase.fastlms.course.repository.CourseRepository;
+import com.zerobase.fastlms.course.repository.TakeCourseRepository;
 import com.zerobase.fastlms.course.service.CourseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,6 +17,7 @@ import org.springframework.util.CollectionUtils;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +26,7 @@ import java.util.Optional;
 public class CourseServiceImpl implements CourseService {
 
     private final CourseRepository courseRepository;
+    private final TakeCourseRepository takeCourseRepository;
     private final CourseMapper courseMapper;
 
 
@@ -167,5 +172,38 @@ public class CourseServiceImpl implements CourseService {
         }
 
         return null;
+    }
+
+    @Override
+    public boolean req(TakeCourseInput parameter) {
+
+        Optional<Course> optionalCourse = courseRepository.findById(parameter.getCourseId());
+        if (!optionalCourse.isPresent()) {
+            return false;
+        }
+
+        Course course = optionalCourse.get();
+
+        //이미 신청정보 있는지 확인
+
+        String[] statusList = {TakeCourse.STATUS_REQ, TakeCourse.STATUS_COMPLETE};
+
+        long count = takeCourseRepository.countByCourseIdAndUserIdAndStatusIn(
+                course.getId(), parameter.getUserId(), Arrays.asList(statusList));
+
+        if (count > 0) {
+            return false;
+        }
+
+        TakeCourse takeCourse = TakeCourse.builder()
+                .courseId(course.getId())
+                .userId(parameter.getUserId())
+                .payPrice(course.getSalePrice())
+                .regDt(LocalDateTime.now())
+                .status(TakeCourse.STATUS_REQ)
+                .build();
+
+        takeCourseRepository.save(takeCourse);
+        return true;
     }
 }
