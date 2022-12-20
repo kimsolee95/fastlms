@@ -19,6 +19,29 @@
             padding: 100px;
         }
 
+        .list .buttons {
+            position: relative;
+            padding: 10px 0;
+        }
+
+        .list .buttons a, .list .buttons button {
+
+            border-width: 0;
+            background-color: transparent;
+            text-decoration: underline;
+            font-size: 14px;
+            line-height: 20px;
+            height: 20px;
+            color: #000;
+            cursor: pointer;
+        }
+
+        .list .buttons .total-count {
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+
         .pager {
             margin-top: 20px;
             text-align: center;
@@ -39,6 +62,49 @@
 
         $(document).ready(function() {
 
+            //전체 삭제 체크
+            $('#selectAll').on('click', function() {
+
+                var checked = $(this).is(':checked');
+
+                $('#dataList input[type=checkbox]').each(function(k, v) {
+
+                    $(this).prop('checked', checked);
+                });
+            });
+
+
+            //삭제 submit
+            $('#deleteButton').on('click', function() {
+
+                var $checked = $('#dataList input[type=checkbox]:checked');
+
+                if ($checked.length < 1) {
+                    alert('삭제할 데이터를 선택해주세요');
+                    return false;
+                }
+
+                if (!confirm('선택한 데이터를 삭제하시겠습니까?')) {
+                    return false;
+                }
+
+                var idList = [];
+
+                $.each($checked, function(k, v) {
+                    idList.push($(this).val());
+                });
+
+                console.log(idList);
+                console.log(idList.join(','));
+
+
+                var $deleteForm = $('form[name=deleteForm]');
+                $deleteForm.find('input[name=idList]').val(idList.join(','));
+                $deleteForm.submit();
+
+            });
+
+
         });
 
     </script>
@@ -49,16 +115,24 @@
 
     <div th:replace="/fragments/layout.html :: fragment-admin-body-menu"></div>
 
-    <div>
-        <a href="/admin/course/add.do"> 강좌 등록 </a>
-    </div>
+
 
     <div class="list">
+
+        <div class="buttons">
+            <p class="total-count"><span th:text="${totalCount}"></span>개</p>
+            <a href="/admin/course/add.do"> 강좌 등록 </a>
+            <button id="deleteButton" type="button"> 선택 삭제 </button>
+        </div>
+
         <table>
             <thead>
             <tr>
                 <th>
-                    ID
+                    <input id="selectAll" type="checkbox" />
+                </th>
+                <th>
+                    NO
                 </th>
                 <th>
                     강좌명
@@ -68,8 +142,13 @@
                 </th>
             </tr>
             </thead>
-            <tbody>
+            <tbody id="dataList">
             <tr th:each="course : ${list}">
+
+                <td>
+                    <input type="checkbox" th:value="${course.id}" />
+                </td>
+
                 <td th:text="${course.id}">
                 </td>
                 <td>
@@ -92,6 +171,10 @@
         </div>
 
     </div>
+
+<form name="deleteForm" method="post" action="/admin/course/delete.do">
+    <input type="hidden" name="idList" />
+</form>
 
 
 </body>

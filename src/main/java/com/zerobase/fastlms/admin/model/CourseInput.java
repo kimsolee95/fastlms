@@ -27,4 +27,7 @@ public class CourseInput {
 
     String saleEndDtText;
 
+    //삭제 id
+    String idList;
+
 }
