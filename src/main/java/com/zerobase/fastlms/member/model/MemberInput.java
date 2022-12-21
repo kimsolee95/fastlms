@@ -15,4 +15,7 @@ public class MemberInput {
 
     private String phone;
 
+    /* 비밀번호 변경 - 회원 */
+    private String newPassword;
+
 }
