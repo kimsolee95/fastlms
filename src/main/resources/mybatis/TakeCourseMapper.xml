@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zerobase.fastlms.course.mapper.TakeCourseMapper">
+
+    <select id="selectListCount"
+            parameterType="com.zerobase.fastlms.course.model.TakeCourseParam"
+            resultType="long">
+        SELECT
+            COUNT(*)
+        FROM TAKE_COURSE
+    </select>
+
+
+    <select id="selectList"
+            parameterType="com.zerobase.fastlms.course.model.TakeCourseParam"
+            resultType="com.zerobase.fastlms.course.dto.TakeCourseDto">
+        SELECT
+            TC.*
+            , C.SUBJECT
+            , M.USER_NAME
+            , M.PHONE
+        FROM TAKE_COURSE TC
+        JOIN COURSE C on TC.COURSE_ID = C.ID
+        JOIN MEMBER M on TC.USER_ID = M.USER_ID
+        ORDER BY REG_DT DESC
+    </select>
+
+
+</mapper>
