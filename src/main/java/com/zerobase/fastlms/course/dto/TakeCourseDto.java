@@ -9,8 +9,11 @@ import lombok.NoArgsConstructor;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,5 +50,12 @@ public class TakeCourseDto {
     long totalCount;
 
     long seq;
+
+    /* view 에서 사용할 날짜 포맷 함수 */
+    public String getRegDtText() {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm");
+        return regDt != null ? regDt.format(formatter) : "";
+    }
 
 }
