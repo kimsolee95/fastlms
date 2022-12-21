@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,6 +24,7 @@ public class MemberDto {
     String phone;
     String password;
     LocalDateTime regDt;
+    LocalDateTime udtDt;
 
     /*이메일 인증 여부*/
     boolean emailAuthYn;
@@ -51,6 +53,26 @@ public class MemberDto {
     /* 회원 상태 */
     String userStatus;
 
+    /* 우편번호 */
+    String zipcode;
+
+    /* 주소 */
+    String addr;
+
+    /* 상세주소 */
+    String addrDetail;
+
+
+    /* 날짜 컬럼 formatting */
+    public String getRegDtText() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
+        return regDt != null ? regDt.format(formatter) : "";
+    }
+    public String getUdtDtText() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
+        return udtDt != null ? udtDt.format(formatter) : "";
+    }
+
     public static MemberDto of(Member member) {
 
         return MemberDto.builder()
@@ -58,6 +80,7 @@ public class MemberDto {
                 .userName(member.getUserName())
                 .phone(member.getPhone())
                 .regDt(member.getRegDt())
+                .udtDt(member.getUdtDt())
                 .emailAuthYn(member.isEmailAuthYn())
                 .emailAuthDt(member.getEmailAuthDt())
                 .emailAuthKey(member.getEmailAuthKey())
@@ -65,6 +88,9 @@ public class MemberDto {
                 .resetPasswordLimitDt(member.getResetPasswordLimitDt())
                 .adminYn(member.isAdminYn())
                 .userStatus(member.getUserStatus())
+                .zipcode(member.getZipcode())
+                .addr(member.getAddr())
+                .addrDetail(member.getAddrDetail())
                 .build();
     }
 

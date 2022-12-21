@@ -26,7 +26,11 @@ public class Member implements MemberCode{
 
     private String password;
 
+    /* 가입일 */
     private LocalDateTime regDt;
+
+    /* 회원정보 수정일 */
+    private LocalDateTime udtDt;
 
     /*이메일 인증 여부*/
     private boolean emailAuthYn;
@@ -48,4 +52,13 @@ public class Member implements MemberCode{
 
     /* 회원 상태 {이용가능 상태, 정지 상태} */
     private String userStatus;
+
+    /* 우편번호 */
+    private String zipcode;
+
+    /* 주소 */
+    private String addr;
+
+    /* 상세주소 */
+    private String addrDetail;
 }

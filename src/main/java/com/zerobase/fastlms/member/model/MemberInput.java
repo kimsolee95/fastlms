@@ -18,4 +18,10 @@ public class MemberInput {
     /* 비밀번호 변경 - 회원 */
     private String newPassword;
 
+    private String zipcode;
+
+    private String addr;
+
+    private String addrDetail;
+
 }
