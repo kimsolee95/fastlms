@@ -1,7 +1,9 @@
 package com.zerobase.fastlms.member.controller;
 
 import com.zerobase.fastlms.admin.dto.MemberDto;
+import com.zerobase.fastlms.course.dto.TakeCourseDto;
 import com.zerobase.fastlms.course.model.ServiceResult;
+import com.zerobase.fastlms.course.service.TakeCourseService;
 import com.zerobase.fastlms.member.entity.Member;
 import com.zerobase.fastlms.member.model.MemberInput;
 import com.zerobase.fastlms.member.model.ResetPasswordInput;
@@ -18,12 +20,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 public class MemberController {
 
     private final MemberService memberService;
+    private final TakeCourseService takeCourseService;
 
 
     @RequestMapping("/member/login")
@@ -142,18 +146,6 @@ public class MemberController {
     }
 
 
-    @GetMapping("/member/takecourse")
-    public String memberTakecourse(Model model, Principal principal) {
-
-        String userId = principal.getName();
-        MemberDto detail = memberService.detail(userId);
-
-        model.addAttribute("detail", detail);
-
-        return "member/takecourse";
-    }
-
-
     @GetMapping("/member/reset/password")
     public String resetPassword(Model model, HttpServletRequest request) {
 
@@ -177,6 +169,16 @@ public class MemberController {
 
         model.addAttribute("result", result);
         return "member/reset-password-result";
+    }
+
+    @GetMapping("/member/takecourse")
+    public String memberTakecourse(Model model, Principal principal) {
+
+        String userId = principal.getName();
+        List<TakeCourseDto> list = takeCourseService.myCourseList(userId);
+
+        model.addAttribute("list", list);
+        return "member/takecourse";
     }
 
 }

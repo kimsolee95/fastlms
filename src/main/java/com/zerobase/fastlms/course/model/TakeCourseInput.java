@@ -10,4 +10,6 @@ public class TakeCourseInput {
 
     String userId;
 
+    long takeCourseId;
+
 }

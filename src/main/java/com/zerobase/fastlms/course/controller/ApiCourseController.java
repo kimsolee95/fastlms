@@ -33,7 +33,6 @@ public class ApiCourseController extends BaseController{
             , @RequestBody TakeCourseInput parameter
             , Principal principal) {
 
-
         //spring security 인터페이스 통한 userId set
         parameter.setUserId(principal.getName());
 

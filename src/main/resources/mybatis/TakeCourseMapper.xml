@@ -17,7 +17,12 @@
             parameterType="com.zerobase.fastlms.course.model.TakeCourseParam"
             resultType="com.zerobase.fastlms.course.dto.TakeCourseDto">
         SELECT
-            TC.*
+            TC.ID
+            , TC.COURSE_ID
+            , TC.PAY_PRICE
+            , TC.REG_DT
+            , TC.STATUS
+            , TC.USER_ID
             , C.SUBJECT
             , M.USER_NAME
             , M.PHONE
@@ -25,6 +30,23 @@
         JOIN COURSE C on TC.COURSE_ID = C.ID
         JOIN MEMBER M on TC.USER_ID = M.USER_ID
         ORDER BY REG_DT DESC
+    </select>
+
+    <select id="selectListMyCourse"
+            parameterType="com.zerobase.fastlms.course.model.TakeCourseParam"
+            resultType="com.zerobase.fastlms.course.dto.TakeCourseDto">
+        SELECT
+            TC.ID
+            , TC.COURSE_ID
+            , TC.PAY_PRICE
+            , TC.REG_DT
+            , TC.STATUS
+            , TC.USER_ID
+            , C.SUBJECT
+        FROM TAKE_COURSE TC
+        JOIN COURSE C on TC.COURSE_ID = C.ID
+        AND TC.USER_ID = 'ahhasolee@naver.com'
+        ORDER BY TC.REG_DT DESC
     </select>
 
 

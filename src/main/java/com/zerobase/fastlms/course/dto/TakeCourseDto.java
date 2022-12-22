@@ -1,6 +1,7 @@
 package com.zerobase.fastlms.course.dto;
 
 import com.zerobase.fastlms.course.entity.Course;
+import com.zerobase.fastlms.course.entity.TakeCourse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -57,5 +58,18 @@ public class TakeCourseDto {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm");
         return regDt != null ? regDt.format(formatter) : "";
     }
+
+    public static TakeCourseDto of (TakeCourse takeCourse) {
+
+        return TakeCourseDto.builder()
+                .id(takeCourse.getId())
+                .courseId(takeCourse.getCourseId())
+                .userId(takeCourse.getUserId())
+                .payPrice(takeCourse.getPayPrice())
+                .status(takeCourse.getStatus())
+                .regDt(takeCourse.getRegDt())
+                .build();
+    }
+
 
 }
