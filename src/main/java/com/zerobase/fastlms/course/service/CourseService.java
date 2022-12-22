@@ -34,4 +34,7 @@ public interface CourseService {
 
     /* 수강신청 - 이용자 */
     ServiceResult req(TakeCourseInput parameter);
+
+    /* 강좌목록 전체 조회 - 관리자 */
+    List<CourseDto> listAll();
 }

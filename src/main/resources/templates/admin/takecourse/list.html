@@ -69,6 +69,13 @@
 
         $(document).ready(function() {
 
+            $('#searchCourseId').on('change', function() {
+
+                var id = $(this).val();
+                //alert(id);
+                location.href = '?searchCourseId=' + id;
+            });
+
 
             //삭제 submit
             $('.row-buttons button').on('click', function() {
@@ -104,6 +111,15 @@
     <div class="list">
 
         <div class="buttons">
+
+            <select id="searchCourseId">
+                <option th:each="course : ${courseList}"
+                        th:selected="${#strings.equals(param.searchCourseId, 'course.id')}"
+                        th:value="${course.id}"
+                        th:text="${course.subject}">
+                </option>
+            </select>
+
             <p class="total-count"><span th:text="${totalCount}"></span>개</p>
         </div>
 
@@ -168,10 +184,15 @@
                     </div>
                 </td>
             </tr>
+            <tr th:if="${#lists.size(list) < 1}">
+                <td colspan="8">
+                    <p class="nothing">내용이 없습니다.</p>
+                </td>
+            </tr>
             </tbody>
         </table>
 
-        <div class="pager" th:utext="${pager}"></div>
+        <div th:if="${#lists.size(list) > 0}" class="pager" th:utext="${pager}"></div>
 
     </div>
 

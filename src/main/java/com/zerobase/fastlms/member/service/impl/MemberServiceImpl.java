@@ -201,9 +201,9 @@ public class MemberServiceImpl implements MemberService {
             throw new MemberStopUserException("정지된 회원입니다.");
         }
 
-//        if (!member.isEmailAuthYn()) {
-//            throw new MemberNotEmailAuthException("이메일 활성화 이후에 로그인을 해주세요.");
-//        }
+        if (Member.MEMBER_STATUS_WITHDRAW.equals(member.getUserStatus())) {
+            throw new MemberStopUserException("탈퇴 회원입니다.");
+        }
 
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
         grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));

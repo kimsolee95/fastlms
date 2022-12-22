@@ -4,12 +4,23 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zerobase.fastlms.course.mapper.TakeCourseMapper">
 
+    <sql id="selectListWhere">
+        <if test="searchCourseId > 0">
+            AND TC.ID = #{searchCourseId}
+        </if>
+    </sql>
+
     <select id="selectListCount"
             parameterType="com.zerobase.fastlms.course.model.TakeCourseParam"
             resultType="long">
         SELECT
             COUNT(*)
-        FROM TAKE_COURSE
+        FROM TAKE_COURSE TC
+        JOIN COURSE C on TC.COURSE_ID = C.ID
+        JOIN MEMBER M on TC.USER_ID = M.USER_ID
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <include refid="selectListWhere"></include>
+        </trim>
     </select>
 
 
@@ -29,6 +40,9 @@
         FROM TAKE_COURSE TC
         JOIN COURSE C on TC.COURSE_ID = C.ID
         JOIN MEMBER M on TC.USER_ID = M.USER_ID
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <include refid="selectListWhere"></include>
+        </trim>
         ORDER BY REG_DT DESC
     </select>
 
@@ -45,7 +59,7 @@
             , C.SUBJECT
         FROM TAKE_COURSE TC
         JOIN COURSE C on TC.COURSE_ID = C.ID
-        AND TC.USER_ID = 'ahhasolee@naver.com'
+        AND TC.USER_ID = #{userId}
         ORDER BY TC.REG_DT DESC
     </select>
 
