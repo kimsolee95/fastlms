@@ -70,4 +70,9 @@ public interface MemberService extends UserDetailsService {
      * 회원 정보 - 회원 정보 변경 (회원)
      * */
     ServiceResult updateMember(MemberInput parameter);
+
+    /**
+     * 회원 정보 - 회원 탈퇴 (회원)
+     * */
+    ServiceResult withdraw(String userId, String password);
 }

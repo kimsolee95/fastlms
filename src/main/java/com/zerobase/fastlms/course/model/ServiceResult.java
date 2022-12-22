@@ -15,7 +15,6 @@ public class ServiceResult extends CommonParam {
 
         /* default constructor */
         public ServiceResult() {
-
         }
 
         public ServiceResult(boolean result) {

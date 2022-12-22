@@ -9,6 +9,7 @@ import com.zerobase.fastlms.member.model.MemberInput;
 import com.zerobase.fastlms.member.model.ResetPasswordInput;
 import com.zerobase.fastlms.member.repository.MemberRepository;
 import com.zerobase.fastlms.member.service.MemberService;
+import com.zerobase.fastlms.util.PasswordUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -179,6 +180,31 @@ public class MemberController {
 
         model.addAttribute("list", list);
         return "member/takecourse";
+    }
+
+
+    @GetMapping("/member/withdraw")
+    public String memberWithdraw(Model model, Principal principal) {
+        
+
+        return "member/withdraw";
+    }
+
+    @PostMapping("/member/withdraw")
+    public String memberWithdrawSubmit(Model model
+            , MemberInput parameter
+            , Principal principal) {
+
+        String userId = principal.getName();
+
+        ServiceResult result = memberService.withdraw(userId, parameter.getPassword());
+        if (!result.isResult()) {
+            model.addAttribute("message", result.getMessage());
+            return "common/error";
+        }
+
+        //logout
+        return "redirect:/member/logout";
     }
 
 }

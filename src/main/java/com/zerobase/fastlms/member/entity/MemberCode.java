@@ -18,4 +18,9 @@ public interface MemberCode {
      * */
     String MEMBER_STATUS_STOP = "STOP";
 
+    /**
+     * 탈퇴 회원
+     * */
+    String MEMBER_STATUS_WITHDRAW = "WITHDRAW";
+
 }
