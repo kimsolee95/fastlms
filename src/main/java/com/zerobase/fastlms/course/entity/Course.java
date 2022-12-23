@@ -46,4 +46,10 @@ public class Course {
     /* 수정일 */
     LocalDateTime udtDt;
 
+    /* img file - local path */
+    String filename;
+
+    /* img file - url path */
+    String urlFilename;
+
 }

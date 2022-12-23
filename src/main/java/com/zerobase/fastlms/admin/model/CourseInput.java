@@ -30,4 +30,10 @@ public class CourseInput {
     //삭제 id
     String idList;
 
+    //add(강좌 img - local path)
+    String filename;
+
+    //add(강좌 img - url path)
+    String urlFilename;
+
 }

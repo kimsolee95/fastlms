@@ -48,6 +48,13 @@ public class CourseDto {
 
     long seq;
 
+    /* img local path */
+    String filename;
+
+    /* img url path */
+    String urlFilename;
+
+
     public static CourseDto of(Course course) {
 
         return CourseDto.builder()
@@ -63,6 +70,8 @@ public class CourseDto {
                 .saleEndDt(course.getSaleEndDt())
                 .regDt(course.getRegDt())
                 .udtDt(course.getUdtDt())
+                .filename(course.getFilename())
+                .urlFilename(course.getUrlFilename())
                 .build();
     }
 

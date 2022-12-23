@@ -21,6 +21,12 @@ spring:
         smtp:
           starttls:
             enable: true
+
+  servlet:
+    multipart:
+      maxFileSize: 20MB
+      maxRequestSize: 100MB
+
 logging:
   level:
     root: info
@@ -30,3 +36,7 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
+itemImgLocation: C:/fstlms-img/item
+uploadPath: file:///C:/fstlms-img
