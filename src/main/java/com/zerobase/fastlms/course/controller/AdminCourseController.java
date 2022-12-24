@@ -84,69 +84,6 @@ public class AdminCourseController extends BaseController{
     }
 
 
-    /**
-     * 파일명 생성
-     * */
-    /*
-    private String[] getNewSaveFile(String baseLocalPath, String baseUrlPath, String originalFilename) {
-
-        LocalDate now = LocalDate.now();
-        String separator = System.getProperty("file.separator"); //os 맞춤 구분자
-
-        //local path
-        //origin source
-//        String[] dirs = {
-//                        String.format("%s/%d", baseLocalPath, now.getYear())
-//                        , String.format("%s/%d/%02d/", baseLocalPath, now.getYear(), now.getMonthValue())
-//                        , String.format("%s/%d/%02d/%02d/", baseLocalPath, now.getYear(), now.getMonthValue(), now.getDayOfMonth())};
-        //수정 (os에 맞게끔 구분자 통일)
-        String[] dirs = {
-                        String.format("%s%s%d", baseLocalPath, separator, now.getYear())
-                        , String.format("%s%s%d%s%02d%s", baseLocalPath, separator, now.getYear(), separator,  now.getMonthValue(), separator)
-                        , String.format("%s%s%d%s%02d%s%02d%s", baseLocalPath, separator, now.getYear(), separator, now.getMonthValue(), separator,  now.getDayOfMonth(), separator)};
-
-        //url path
-        //origin source
-//        String urlDir = String.format("%s/%d/%02d/%02d/", baseUrlPath, now.getYear(), now.getMonthValue(), now.getDayOfMonth());
-        //수정 (os에 맞게끔 구분자 통일)
-        String urlDir = String.format("%s%s%d%s%02d%s%02d%s", baseUrlPath, separator, now.getYear(), separator, now.getMonthValue(), separator, now.getDayOfMonth(), separator);
-
-
-        for (String dir : dirs) {
-
-            File file = new File(dir);
-            if (!file.isDirectory()) {
-                file.mkdir();
-            }
-        }
-
-        String fileExtension = "";
-
-        if (originalFilename != null) {
-
-            int dotPos = originalFilename.lastIndexOf(".");
-            if (dotPos > -1) {
-                fileExtension = originalFilename.substring(dotPos + 1);
-            }
-        }
-
-        String uuid = UUID.randomUUID().toString().replace("-", "");
-        String newFilename = String.format("%s%s", dirs[2], uuid); //local path
-        String newUrlFilename = String.format("%s%s", urlDir, uuid); //url path
-
-        if (fileExtension.length() > 0) {
-            newFilename += "." + fileExtension;
-            newUrlFilename += "." + fileExtension;
-        }
-
-        String[] returnFilename = {newFilename, newUrlFilename};
-
-        return returnFilename;
-    }
-
-     */
-
-
     @PostMapping(value = {"/admin/course/add.do", "/admin/course/edit.do"})
     public String addSubmit(Model model
                     , HttpServletRequest request
@@ -174,7 +111,6 @@ public class AdminCourseController extends BaseController{
             String baseUrlPath = File.separator + "img" + File.separator + "course-img";
 
             String[] arrFilename = FileUploadUtil.getNewSaveFile(baseLocalPath, baseUrlPath, originalFilename);
-                    //getNewSaveFile(baseLocalPath, baseUrlPath, originalFilename);
 
             saveFileName = arrFilename[0]; //local path
             urlFilename = arrFilename[1]; //url path
