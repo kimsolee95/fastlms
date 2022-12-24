@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -31,6 +31,6 @@ public class LoginHistory {
     String userAgent;
 
     /* 로그인일시 */
-    LocalDate loginDt;
+    LocalDateTime loginDt;
 
 }

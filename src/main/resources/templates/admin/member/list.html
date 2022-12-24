@@ -116,7 +116,7 @@
                         <p th:if="${member.adminYn eq false}">N</p>
                     </td>
                     <td>
-
+                        <p th:text="${member.getLastLoginDtText}"></p>
                     </td>
                 </tr>
             </tbody>

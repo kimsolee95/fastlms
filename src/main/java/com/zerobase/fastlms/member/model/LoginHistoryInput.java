@@ -1,9 +1,8 @@
 package com.zerobase.fastlms.member.model;
 
 import lombok.Data;
-import lombok.ToString;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 public class LoginHistoryInput {
@@ -18,6 +17,6 @@ public class LoginHistoryInput {
     String userAgent;
     
     /* 로그인 일시 */
-    LocalDate loginDt;
+    LocalDateTime loginDt;
 
 }

@@ -1,5 +1,6 @@
 package com.zerobase.fastlms.member.service.impl;
 
+import com.zerobase.fastlms.admin.dto.LoginHistoryDto;
 import com.zerobase.fastlms.admin.dto.MemberDto;
 import com.zerobase.fastlms.admin.mapper.MemberMapper;
 import com.zerobase.fastlms.admin.model.MemberParam;
@@ -254,6 +255,14 @@ public class MemberServiceImpl implements MemberService {
 
         Member member = optionalMember.get();
         return  MemberDto.of(member); // Member -> MemberDto로 변환 return
+    }
+
+    @Override
+    public List<LoginHistoryDto> loginHistoryList(MemberParam parameter) {
+
+        List<LoginHistoryDto> loginHistoryList = memberMapper.selectLoginHistoryList(parameter);
+
+        return loginHistoryList;
     }
 
 

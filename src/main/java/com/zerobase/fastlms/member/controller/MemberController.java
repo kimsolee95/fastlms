@@ -49,7 +49,7 @@ public class MemberController {
         parameter.setUserId(userId);
         parameter.setUserAgent(LoginUserUtil.getUserAgent(request));
         parameter.setUserIpAddr(LoginUserUtil.getRemoteIP(request));
-        parameter.setLoginDt(LocalDate.now());
+        parameter.setLoginDt(LocalDateTime.now());
         boolean result = memberService.insertLoginHistory(parameter);
 
         return "index";

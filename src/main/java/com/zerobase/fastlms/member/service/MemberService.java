@@ -1,5 +1,6 @@
 package com.zerobase.fastlms.member.service;
 
+import com.zerobase.fastlms.admin.dto.LoginHistoryDto;
 import com.zerobase.fastlms.admin.dto.MemberDto;
 import com.zerobase.fastlms.admin.model.MemberParam;
 import com.zerobase.fastlms.course.model.ServiceResult;
@@ -46,11 +47,15 @@ public interface MemberService extends UserDetailsService {
      * */
     List<MemberDto> list(MemberParam parameter);
 
-
     /**
      *회원 상세 정보
      */
     MemberDto detail(String userId);
+
+    /**
+     * 각 회원 로그인 히스토리 목록 - 회원 상세정보 페이지
+     * */
+    List<LoginHistoryDto> loginHistoryList(MemberParam parameter);
 
     /**
      * 회원 상태 변경

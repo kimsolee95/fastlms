@@ -1,5 +1,6 @@
 package com.zerobase.fastlms.admin.mapper;
 
+import com.zerobase.fastlms.admin.dto.LoginHistoryDto;
 import com.zerobase.fastlms.admin.dto.MemberDto;
 import com.zerobase.fastlms.admin.model.MemberParam;
 import com.zerobase.fastlms.member.entity.Member;
@@ -15,6 +16,8 @@ public interface MemberMapper {
 
     /* admin 회원 조회 */
     List<MemberDto> selectList(MemberParam parameter);
+
+    List<LoginHistoryDto> selectLoginHistoryList(MemberParam parameter);
 
 
 }

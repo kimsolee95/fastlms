@@ -62,6 +62,9 @@ public class MemberDto {
     /* 상세주소 */
     String addrDetail;
 
+    /* 마지막 로그인 날짜 */
+    LocalDateTime lastLoginDt;
+
 
     /* 날짜 컬럼 formatting */
     public String getRegDtText() {
@@ -71,6 +74,13 @@ public class MemberDto {
     public String getUdtDtText() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
         return udtDt != null ? udtDt.format(formatter) : "";
+    }
+
+    /* 마지막 로그인 날짜 컬럼 formatting */
+    public String getLastLoginDtText() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
+        return lastLoginDt != null ? lastLoginDt.format(formatter) : "";
+
     }
 
     public static MemberDto of(Member member) {
