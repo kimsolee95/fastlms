@@ -5,6 +5,7 @@ import com.zerobase.fastlms.admin.service.CategoryService;
 import com.zerobase.fastlms.course.dto.CourseDto;
 import com.zerobase.fastlms.course.model.CourseParam;
 import com.zerobase.fastlms.course.service.CourseService;
+import com.zerobase.fastlms.util.FileUploadUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -86,6 +87,7 @@ public class AdminCourseController extends BaseController{
     /**
      * 파일명 생성
      * */
+    /*
     private String[] getNewSaveFile(String baseLocalPath, String baseUrlPath, String originalFilename) {
 
         LocalDate now = LocalDate.now();
@@ -142,6 +144,8 @@ public class AdminCourseController extends BaseController{
         return returnFilename;
     }
 
+     */
+
 
     @PostMapping(value = {"/admin/course/add.do", "/admin/course/edit.do"})
     public String addSubmit(Model model
@@ -166,10 +170,11 @@ public class AdminCourseController extends BaseController{
 
             String baseLocalPath =
                     System.getProperty("user.dir") + File.separator
-                            + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "static" + File.separator + "img";
-            String baseUrlPath = File.separator + "img";
+                            + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "static" + File.separator + "img" + File.separator + "course-img";
+            String baseUrlPath = File.separator + "img" + File.separator + "course-img";
 
-            String[] arrFilename = getNewSaveFile(baseLocalPath, baseUrlPath, originalFilename);
+            String[] arrFilename = FileUploadUtil.getNewSaveFile(baseLocalPath, baseUrlPath, originalFilename);
+                    //getNewSaveFile(baseLocalPath, baseUrlPath, originalFilename);
 
             saveFileName = arrFilename[0]; //local path
             urlFilename = arrFilename[1]; //url path

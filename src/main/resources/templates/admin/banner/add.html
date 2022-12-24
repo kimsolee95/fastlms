@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>관리자 화면</title>
+    <style>
+
+        .detail table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .detail table th, .detail table td {
+            border: solid 1px #800;
+        }
+
+        .buttons {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .buttons a, .buttons button {
+
+            border-width: 0;
+            background-color: transparent;
+            text-decoration: underline;
+            font-size: 12px;
+            line-height: 20px;
+            height: 20px;
+            color: #000;
+            cursor: pointer;
+        }
+
+    </style>
+
+    <!-- jquery cdn -->
+    <script src="https://code.jquery.com/jquery-3.6.2.min.js" integrity="sha256-2krYZKh//PcchRtd+H+VyyQoZ/e3EcrkxhM8ycwASPA=" crossorigin="anonymous"></script>
+
+    <script>
+
+        $(document).ready(function() {
+
+
+
+
+        });
+
+    </script>
+</head>
+<body>
+
+    <h1>관리자 강좌 관리 - 강좌 등록</h1>
+
+    <div th:replace="/fragments/layout.html :: fragment-admin-body-menu"></div>
+
+    <form id="submitForm" method="post" enctype="multipart/form-data">
+        <div class="detail">
+
+            <table>
+                <tbody>
+                    <tr>
+                        <th>
+                            배너명
+                        </th>
+                        <td>
+                            <input type="text" name="subject" required placeholder="배너명 입력"  />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            배너 파일
+                        </th>
+                        <td>
+                            <input type="file" name="file" />
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            링크 주소
+                        </th>
+                        <td>
+                            <input type="text" name="linkUrl" required placeholder="링크 주소 입력" />
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            오픈 방법
+                        </th>
+                        <td>
+                            <select>
+                                <option value="">오픈 방법 선택</option>
+                                <!--
+                                <option th:selected="${detail.categoryId == category.id}"
+                                        th:each="category : ${categoryList}"
+                                        th:value="${category.id}"
+                                        th:text="${category.categoryName}">
+                                </option>
+                                -->
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            정렬 순서
+                        </th>
+                        <td>
+                            <input type="number" name="sortOrder" required placeholder="정렬 순서 입력" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            공개 여부
+                        </th>
+                        <td>
+                            <input type="checkbox" name="usingYn" />
+                            <span>공개</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="buttons">
+                <!--
+                <button th:if="${editMode}" type="submit">배너 수정하기</button>
+                <button th:if="${!editMode}" type="submit">배너 등록하기</button>
+                -->
+                <button type="submit">배너 등록하기</button>
+                <a href="/admin/course/list.do">목록 이동</a>
+            </div>
+
+        </div>
+    </form>
+
+
+
+</body>
+</html>
