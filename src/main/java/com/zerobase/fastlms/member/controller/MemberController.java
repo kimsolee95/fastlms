@@ -41,10 +41,12 @@ public class MemberController {
     }
 
     @GetMapping("/member/login-success")
-    public String loginSuccess(HttpServletRequest request) {
+    public String loginSuccess(HttpServletRequest request, Principal principal) {
+
+        String userId = principal.getName();
 
         LoginHistoryInput parameter = new LoginHistoryInput();
-        parameter.setUserId(request.getParameter("username"));
+        parameter.setUserId(userId);
         parameter.setUserAgent(LoginUserUtil.getUserAgent(request));
         parameter.setUserIpAddr(LoginUserUtil.getRemoteIP(request));
         parameter.setLoginDt(LocalDate.now());
