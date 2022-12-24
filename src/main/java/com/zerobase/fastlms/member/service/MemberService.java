@@ -4,6 +4,7 @@ import com.zerobase.fastlms.admin.dto.MemberDto;
 import com.zerobase.fastlms.admin.model.MemberParam;
 import com.zerobase.fastlms.course.model.ServiceResult;
 import com.zerobase.fastlms.member.entity.Member;
+import com.zerobase.fastlms.member.model.LoginHistoryInput;
 import com.zerobase.fastlms.member.model.MemberInput;
 import com.zerobase.fastlms.member.model.ResetPasswordInput;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -75,4 +76,9 @@ public interface MemberService extends UserDetailsService {
      * 회원 정보 - 회원 탈퇴 (회원)
      * */
     ServiceResult withdraw(String userId, String password);
+
+    /**
+     * 회원 로그인 히스토리 저장
+     * */
+    boolean insertLoginHistory(LoginHistoryInput parameter);
 }

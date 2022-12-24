@@ -5,14 +5,18 @@ import com.zerobase.fastlms.admin.mapper.MemberMapper;
 import com.zerobase.fastlms.admin.model.MemberParam;
 import com.zerobase.fastlms.components.MailComponents;
 import com.zerobase.fastlms.course.model.ServiceResult;
+import com.zerobase.fastlms.member.entity.LoginHistory;
 import com.zerobase.fastlms.member.entity.Member;
 import com.zerobase.fastlms.member.entity.MemberCode;
 import com.zerobase.fastlms.member.exception.MemberNotEmailAuthException;
 import com.zerobase.fastlms.member.exception.MemberStopUserException;
+import com.zerobase.fastlms.member.model.LoginHistoryInput;
 import com.zerobase.fastlms.member.model.MemberInput;
 import com.zerobase.fastlms.member.model.ResetPasswordInput;
+import com.zerobase.fastlms.member.repository.LoginHistoryRepository;
 import com.zerobase.fastlms.member.repository.MemberRepository;
 import com.zerobase.fastlms.member.service.MemberService;
+import com.zerobase.fastlms.util.LoginUserUtil;
 import com.zerobase.fastlms.util.PasswordUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -37,6 +41,7 @@ public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
     private final MailComponents mailComponents;
     private final MemberMapper memberMapper;
+    private final LoginHistoryRepository loginHistoryRepository;
 
     /*
     * 회원 가입
@@ -360,6 +365,20 @@ public class MemberServiceImpl implements MemberService {
         memberRepository.save(member);
 
         return new ServiceResult(true);
+    }
+
+    @Override
+    public boolean insertLoginHistory(LoginHistoryInput parameter) {
+
+        LoginHistory loginHistory = LoginHistory.builder()
+                .userId(parameter.getUserId())
+                .userAgent(parameter.getUserAgent())
+                .userIpAddr(parameter.getUserIpAddr())
+                .loginDt(parameter.getLoginDt())
+                .build();
+
+        loginHistoryRepository.save(loginHistory);
+        return true;
     }
 
 }

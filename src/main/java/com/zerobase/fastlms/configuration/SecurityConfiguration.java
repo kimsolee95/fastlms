@@ -36,6 +36,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new UserAuthenticationFailureHandler();
     }
 
+    //add
+    @Bean
+    UserAuthenticationSuccessHandler getSuccessHandler() {
+        return new UserAuthenticationSuccessHandler();
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
@@ -59,6 +65,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.formLogin()
                         .loginPage("/member/login")
+                        .successHandler(getSuccessHandler()) //add
                         .failureHandler(getFailureHandler())
                         .permitAll();
 

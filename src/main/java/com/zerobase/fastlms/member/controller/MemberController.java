@@ -5,10 +5,12 @@ import com.zerobase.fastlms.course.dto.TakeCourseDto;
 import com.zerobase.fastlms.course.model.ServiceResult;
 import com.zerobase.fastlms.course.service.TakeCourseService;
 import com.zerobase.fastlms.member.entity.Member;
+import com.zerobase.fastlms.member.model.LoginHistoryInput;
 import com.zerobase.fastlms.member.model.MemberInput;
 import com.zerobase.fastlms.member.model.ResetPasswordInput;
 import com.zerobase.fastlms.member.repository.MemberRepository;
 import com.zerobase.fastlms.member.service.MemberService;
+import com.zerobase.fastlms.util.LoginUserUtil;
 import com.zerobase.fastlms.util.PasswordUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -35,6 +38,19 @@ public class MemberController {
     public String login() {
 
         return "member/login";
+    }
+
+    @GetMapping("/member/login-success")
+    public String loginSuccess(HttpServletRequest request) {
+
+        LoginHistoryInput parameter = new LoginHistoryInput();
+        parameter.setUserId(request.getParameter("username"));
+        parameter.setUserAgent(LoginUserUtil.getUserAgent(request));
+        parameter.setUserIpAddr(LoginUserUtil.getRemoteIP(request));
+        parameter.setLoginDt(LocalDate.now());
+        boolean result = memberService.insertLoginHistory(parameter);
+
+        return "index";
     }
 
     @GetMapping("/member/find/password")
