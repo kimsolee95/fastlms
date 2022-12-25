@@ -88,7 +88,7 @@ public class AdminBannerController extends BaseController {
 
         boolean result = bannerService.add(parameter);
 
-        return "admin/banner/add";
+        return "redirect:/admin/banner/list.do";
     }
 
 }
