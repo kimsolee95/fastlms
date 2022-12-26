@@ -33,7 +33,9 @@
                 </div>
 
                 <div th:each="banner : ${frontBannerList}" class="carousel-item">
-                    <img th:src="${banner.urlFilename}" class="d-block w-70" alt="...">
+                    <a th:href="@{${banner.linkUrl}}" th:target="${banner.openWay}">
+                        <img th:src="${banner.urlFilename}" class="d-block w-70" alt="...">
+                    </a>
                 </div>
 
 

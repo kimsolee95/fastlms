@@ -89,15 +89,10 @@
                             오픈 방법
                         </th>
                         <td>
-                            <select>
-                                <option value="">오픈 방법 선택</option>
-                                <!--
-                                <option th:selected="${detail.categoryId == category.id}"
-                                        th:each="category : ${categoryList}"
-                                        th:value="${category.id}"
-                                        th:text="${category.categoryName}">
-                                </option>
-                                -->
+                            <select name="openWay" id="openWay" th:value="${detail.openWay}">
+                                <option th:selected="${detail.openWay} == '1'" value="">오픈 방법 선택</option>
+                                <option th:selected="${detail.openWay} == '_blank'" value="_blank">새 창</option>
+                                <option th:selected="${detail.openWay} == '_self'" value="_self">현재 창</option>
                             </select>
                         </td>
                     </tr>
@@ -115,14 +110,6 @@
                             공개 여부
                         </th>
                         <td>
-                            <!--
-                            <input type="checkbox" name="usingYn" />
-                            <span>공개</span>
-                            -->
-                            <!--
-                            <input th:checked="${category.usingYn}" type="checkbox" th:id="'usingYn_' + ${category.id}" th:name="'usingYn_' + ${category.id}" value="true" />
-                            <label th:for="'usingYn_' + ${category.id}">사용</label>
-                            -->
                             <input th:checked="${detail.usingYn}" type="checkbox" name="usingYn" id="usingYn" value="true" />
                             <label for="usingYn">사용</label>
                         </td>

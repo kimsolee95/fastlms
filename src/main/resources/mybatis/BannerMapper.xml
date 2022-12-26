@@ -28,6 +28,7 @@
         SELECT
             B.URL_FILENAME
             , B.LINK_URL
+            , B.OPEN_WAY
         FROM BANNER B
         WHERE USING_YN = '1'
         ORDER BY SORT_ORDER ASC
