@@ -133,4 +133,14 @@ public class AdminBannerController extends BaseController {
         return "redirect:/admin/banner/list.do";
     }
 
+    @PostMapping("/admin/banner/delete.do")
+    public String del (HttpServletRequest request
+                        , Model model
+                        , BannerInput parameter) {
+
+
+        boolean result = bannerService.del(parameter.getIdList());
+        return "redirect:/admin/banner/list.do";
+    }
+
 }

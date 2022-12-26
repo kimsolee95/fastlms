@@ -37,4 +37,7 @@ public class BannerInput {
     /* 수정일 */
     LocalDateTime udtDt;
 
+    //삭제 id
+    String idList;
+
 }

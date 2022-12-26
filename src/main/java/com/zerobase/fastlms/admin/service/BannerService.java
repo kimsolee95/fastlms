@@ -15,6 +15,9 @@ public interface BannerService {
     /* 배너 수정 */
     boolean set(BannerInput parameter);
 
+    /* 배너 삭제 */
+    boolean del(String idList);
+
     /* 배너 리스트 조회 */
     List<BannerDto> selectBannerList(CommonParam parameter);
 

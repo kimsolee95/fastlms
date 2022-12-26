@@ -62,6 +62,31 @@ public class BannerServiceImpl implements BannerService {
     }
 
     @Override
+    public boolean del(String idList) {
+
+        if (idList != null && idList.length() > 0) {
+
+            String[] ids = idList.split(",");
+
+            for (String s : ids) {
+
+                Long id = 0L;
+
+                try {
+                    id = Long.parseLong(s);
+                } catch (Exception e) {
+                }
+
+                if (id > 0) {
+                    bannerRepository.deleteById(id);
+                }
+            }
+        }
+
+        return false;
+    }
+
+    @Override
     public List<BannerDto> selectBannerList(CommonParam parameter) {
 
         List<BannerDto> bannerList = bannerMapper.selectBannerList(parameter);
