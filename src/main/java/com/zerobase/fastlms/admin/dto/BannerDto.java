@@ -1,5 +1,6 @@
 package com.zerobase.fastlms.admin.dto;
 
+import com.zerobase.fastlms.admin.entity.Banner;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -48,6 +49,22 @@ public class BannerDto {
     public String getRegDtText() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
         return regDt != null ? regDt.format(formatter) : "";
+    }
+
+    public static BannerDto of (Banner banner) {
+
+        return BannerDto.builder()
+                .id(banner.getId())
+                .subject(banner.getSubject())
+                .linkUrl(banner.getLinkUrl())
+                .sortOrder(banner.getSortOrder())
+                .usingYn(banner.isUsingYn())
+                .openWay(banner.getOpenWay())
+                .filename(banner.getFilename())
+                .urlFilename(banner.getUrlFilename())
+                .regDt(banner.getRegDt())
+                .udtDt(banner.getUdtDt())
+                .build();
     }
 
 }

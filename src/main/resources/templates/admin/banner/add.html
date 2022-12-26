@@ -63,7 +63,7 @@
                             배너명
                         </th>
                         <td>
-                            <input type="text" name="subject" required placeholder="배너명 입력"  />
+                            <input th:value="${detail.subject}" type="text" name="subject" required placeholder="배너명 입력"  />
                         </td>
                     </tr>
                     <tr>
@@ -80,7 +80,7 @@
                             링크 주소
                         </th>
                         <td>
-                            <input type="text" name="linkUrl" required placeholder="링크 주소 입력" />
+                            <input th:value="${detail.linkUrl}" type="text" name="linkUrl" required placeholder="링크 주소 입력" />
                         </td>
                     </tr>
 
@@ -107,7 +107,7 @@
                             정렬 순서
                         </th>
                         <td>
-                            <input type="number" name="sortOrder" required placeholder="정렬 순서 입력" />
+                            <input th:value="${detail.sortOrder}" type="number" name="sortOrder" required placeholder="정렬 순서 입력" />
                         </td>
                     </tr>
                     <tr>
@@ -123,7 +123,7 @@
                             <input th:checked="${category.usingYn}" type="checkbox" th:id="'usingYn_' + ${category.id}" th:name="'usingYn_' + ${category.id}" value="true" />
                             <label th:for="'usingYn_' + ${category.id}">사용</label>
                             -->
-                            <input type="checkbox" name="usingYn" id="usingYn" value="true" />
+                            <input th:checked="${detail.usingYn}" type="checkbox" name="usingYn" id="usingYn" value="true" />
                             <label for="usingYn">사용</label>
                         </td>
                     </tr>
@@ -131,11 +131,10 @@
             </table>
 
             <div class="buttons">
-                <!--
+
                 <button th:if="${editMode}" type="submit">배너 수정하기</button>
                 <button th:if="${!editMode}" type="submit">배너 등록하기</button>
-                -->
-                <button type="submit">배너 등록하기</button>
+
                 <a href="/admin/banner/list.do">목록 이동</a>
             </div>
 

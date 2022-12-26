@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -39,6 +40,28 @@ public class BannerServiceImpl implements BannerService {
     }
 
     @Override
+    public boolean set(BannerInput parameter) {
+
+        Optional<Banner> optionalBanner = bannerRepository.findById(parameter.getId());
+        if (!optionalBanner.isPresent()) {
+            return false;
+        }
+
+        Banner banner = optionalBanner.get();
+        banner.setSubject(parameter.getSubject());
+        banner.setLinkUrl(parameter.getLinkUrl());
+        banner.setSortOrder(parameter.getSortOrder());
+        banner.setUsingYn(parameter.isUsingYn());
+        banner.setOpenWay(parameter.getOpenWay());
+        banner.setFilename(parameter.getFilename());
+        banner.setUrlFilename(parameter.getUrlFilename());
+        banner.setUdtDt(LocalDateTime.now());
+        bannerRepository.save(banner);
+
+        return true;
+    }
+
+    @Override
     public List<BannerDto> selectBannerList(CommonParam parameter) {
 
         List<BannerDto> bannerList = bannerMapper.selectBannerList(parameter);
@@ -48,5 +71,11 @@ public class BannerServiceImpl implements BannerService {
     @Override
     public long selectListCount() {
         return bannerMapper.selectListCount();
+    }
+
+    @Override
+    public BannerDto getById(long id) {
+        BannerDto existBanner = bannerRepository.findById(id).map(BannerDto::of).orElse(null);
+        return existBanner;
     }
 }

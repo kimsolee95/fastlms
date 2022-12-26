@@ -46,14 +46,38 @@ public class AdminBannerController extends BaseController {
     }
 
 
-    @GetMapping("/admin/banner/add.do")
-    public String add() {
+    @GetMapping(value = {"/admin/banner/add.do", "/admin/banner/edit.do"})
+    public String add(Model model
+                    , HttpServletRequest request
+                    , BannerInput parameter) {
+
+        boolean editMode = request.getRequestURI().contains("/edit.do");
+
+        BannerDto detail = new BannerDto();
+
+        if (editMode) {
+
+            long id = parameter.getId();
+            BannerDto existBanner = bannerService.getById(id);
+
+            if (existBanner == null) {
+                //error
+                model.addAttribute("message", "배너 정보가 존재하지 않습니다.");
+                return "common/error";
+            }
+
+            detail = existBanner;
+        }
+
+        model.addAttribute("detail", detail);
+        model.addAttribute("editMode", editMode);
 
         return "admin/banner/add";
     }
 
-    @PostMapping("/admin/banner/add.do")
+    @PostMapping(value = {"/admin/banner/add.do", "/admin/banner/edit.do"})
     public String addSubmit(HttpServletRequest request
+                            , Model model
                             , BannerInput parameter
                             , MultipartFile file) {
 
@@ -86,7 +110,25 @@ public class AdminBannerController extends BaseController {
         parameter.setFilename(saveFilename);
         parameter.setUrlFilename(urlFilename);
 
-        boolean result = bannerService.add(parameter);
+        boolean editMode = request.getRequestURI().contains("/edit.do");
+
+        if (editMode) {
+
+            long id = parameter.getId();
+            BannerDto existBanner = bannerService.getById(id);
+
+            if (existBanner == null) {
+                //error
+                model.addAttribute("message", "배너 정보가 존재하지 않습니다.");
+                return "common/error";
+            }
+
+            boolean result = bannerService.set(parameter);
+
+        } else {
+
+            boolean result = bannerService.add(parameter);
+        }
 
         return "redirect:/admin/banner/list.do";
     }

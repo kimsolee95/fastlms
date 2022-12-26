@@ -12,8 +12,16 @@ public interface BannerService {
     /* 배너 등록 */
     boolean add(BannerInput parameter);
 
+    /* 배너 수정 */
+    boolean set(BannerInput parameter);
+
+    /* 배너 리스트 조회 */
     List<BannerDto> selectBannerList(CommonParam parameter);
 
+    /* 배너 리스트 총 개수 */
     long selectListCount();
+
+    /* 배너 상세정보 - 관리자 */
+    BannerDto getById(long id);
 
 }
