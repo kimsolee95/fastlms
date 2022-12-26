@@ -4,7 +4,7 @@ import com.zerobase.fastlms.admin.dto.LoginHistoryDto;
 import com.zerobase.fastlms.admin.dto.MemberDto;
 import com.zerobase.fastlms.admin.model.MemberParam;
 import com.zerobase.fastlms.course.model.ServiceResult;
-import com.zerobase.fastlms.member.entity.Member;
+import com.zerobase.fastlms.member.dto.FrontBannerDto;
 import com.zerobase.fastlms.member.model.LoginHistoryInput;
 import com.zerobase.fastlms.member.model.MemberInput;
 import com.zerobase.fastlms.member.model.ResetPasswordInput;
@@ -86,4 +86,10 @@ public interface MemberService extends UserDetailsService {
      * 회원 로그인 히스토리 저장
      * */
     boolean insertLoginHistory(LoginHistoryInput parameter);
+
+
+    /**
+     * 프론트 배너 리스트 조회
+     * */
+    List<FrontBannerDto> selectFrontBannerList();
 }

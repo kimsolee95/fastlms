@@ -23,5 +23,15 @@
         LIMIT #{pageStart}, #{pageEnd}
     </select>
 
+    <select id="selectFrontBannerList"
+            resultType="com.zerobase.fastlms.member.dto.FrontBannerDto">
+        SELECT
+            B.URL_FILENAME
+            , B.LINK_URL
+        FROM BANNER B
+        WHERE USING_YN = '1'
+        ORDER BY SORT_ORDER ASC
+    </select>
+
 
 </mapper>

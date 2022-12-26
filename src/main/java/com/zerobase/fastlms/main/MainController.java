@@ -1,26 +1,29 @@
 package com.zerobase.fastlms.main;
 
 import com.zerobase.fastlms.components.MailComponents;
+import com.zerobase.fastlms.member.dto.FrontBannerDto;
+import com.zerobase.fastlms.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 public class MainController {
 
     private final MailComponents mailComponents;
+    private final MemberService memberService;
 
 
     @RequestMapping("/")
-    public String index() {
+    public String index(Model model) {
 
-//        String email = "ahhasolee@naver.com";
-//        String subject = "제로베이스 mail send test";
-//        String text = "<p>안녕하세요</p><p>test입니다.</p>";
-//
-//        mailComponents.sendMail(email, subject, text);
+        List<FrontBannerDto> frontBannerList = memberService.selectFrontBannerList();
 
+        model.addAttribute("frontBannerList", frontBannerList);
         return "index";
     }
 

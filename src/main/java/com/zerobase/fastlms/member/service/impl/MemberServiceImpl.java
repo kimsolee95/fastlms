@@ -2,10 +2,12 @@ package com.zerobase.fastlms.member.service.impl;
 
 import com.zerobase.fastlms.admin.dto.LoginHistoryDto;
 import com.zerobase.fastlms.admin.dto.MemberDto;
+import com.zerobase.fastlms.admin.mapper.BannerMapper;
 import com.zerobase.fastlms.admin.mapper.MemberMapper;
 import com.zerobase.fastlms.admin.model.MemberParam;
 import com.zerobase.fastlms.components.MailComponents;
 import com.zerobase.fastlms.course.model.ServiceResult;
+import com.zerobase.fastlms.member.dto.FrontBannerDto;
 import com.zerobase.fastlms.member.entity.LoginHistory;
 import com.zerobase.fastlms.member.entity.Member;
 import com.zerobase.fastlms.member.entity.MemberCode;
@@ -17,7 +19,6 @@ import com.zerobase.fastlms.member.model.ResetPasswordInput;
 import com.zerobase.fastlms.member.repository.LoginHistoryRepository;
 import com.zerobase.fastlms.member.repository.MemberRepository;
 import com.zerobase.fastlms.member.service.MemberService;
-import com.zerobase.fastlms.util.LoginUserUtil;
 import com.zerobase.fastlms.util.PasswordUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -43,6 +44,7 @@ public class MemberServiceImpl implements MemberService {
     private final MailComponents mailComponents;
     private final MemberMapper memberMapper;
     private final LoginHistoryRepository loginHistoryRepository;
+    private final BannerMapper bannerMapper;
 
     /*
     * 회원 가입
@@ -388,6 +390,11 @@ public class MemberServiceImpl implements MemberService {
 
         loginHistoryRepository.save(loginHistory);
         return true;
+    }
+
+    @Override
+    public List<FrontBannerDto> selectFrontBannerList() {
+        return bannerMapper.selectFrontBannerList();
     }
 
 }
